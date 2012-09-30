@@ -55,6 +55,7 @@ class EdigeoParcelle(models.Model):
     tex2 = models.CharField(max_length=80, blank=True)
     tex = models.CharField(max_length=80, blank=True)
     the_geom = models.GeometryField(null=True, blank=True)
+    objects = models.GeoManager()
 
     class Meta:
         db_table = u'edigeo_parcelle'

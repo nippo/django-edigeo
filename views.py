@@ -28,12 +28,12 @@ def bati(request):
 @user_passes_test(lambda u: u.has_perm('staff'))
 def parcelle(request):
     qs = EdigeoParcelle.objects.all()
-    json = render_to_geojson(qs, projection=4326)
+    json = render_to_geojson(qs, projection=4326, properties=['gb_ident'])
     return HttpResponse(json, mimetype=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def lieudit(request):
     qs = EdigeoLieuDit.objects.all()
-    json = render_to_geojson(qs, projection=4326)
+    json = render_to_geojson(qs, projection=4326, properties=['gb_ident'])
     return HttpResponse(json, mimetype=u'application/json')
