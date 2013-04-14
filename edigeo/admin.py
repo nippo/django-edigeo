@@ -1,6 +1,4 @@
-from django.conf.urls import patterns, url, include
 from django.contrib.gis import admin
-#from django_extensions.admin import ForeignKeyAutocompleteAdmin
 
 from models import *
 

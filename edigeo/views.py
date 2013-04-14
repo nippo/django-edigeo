@@ -1,4 +1,5 @@
-from models import EdigeoParcelle, EdigeoLieuDit, EdigeoBati, EdigeoBorneParcel, EdigeoSubdFisc
+from models import (EdigeoParcelle, EdigeoLieuDit,
+                    EdigeoBati, EdigeoBorneParcel, EdigeoSubdFisc)
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 from geoshortcuts.geojson import render_to_geojson
@@ -26,9 +27,9 @@ def bati(request):
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
-def parcelle(request):
+def parcel(request):
     qs = EdigeoParcelle.objects.all()
-    json = render_to_geojson(qs, projection=4326, properties=['gb_ident'])
+    json = render_to_geojson(qs, projection=4326, properties=['idu', 'supf'])
     return HttpResponse(json, mimetype=u'application/json')
 
 

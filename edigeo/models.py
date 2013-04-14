@@ -51,7 +51,8 @@ class EdigeoParcelle(models.Model):
     codm = models.CharField(max_length=80, blank=True)
     idu = models.CharField(max_length=20, blank=True)
     indp = models.CharField(max_length=80, blank=True)
-    supf = models.DecimalField(null=True, max_digits=65535, decimal_places=65535, blank=True)
+    supf = models.DecimalField(null=True, max_digits=65535,
+                               decimal_places=65535, blank=True)
     tex2 = models.CharField(max_length=80, blank=True)
     tex = models.CharField(max_length=80, blank=True)
     the_geom = models.GeometryField(null=True, blank=True)
