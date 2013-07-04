@@ -41,5 +41,5 @@ def parcel(request):
 def lieudit(request):
     qs = EdigeoLieuDit.objects.all()
     json = render_to_geojson(qs, projection=4326, properties=[
-        ('gb_ident', 'gbindent')])
+        ('gb_ident', 'gb_ident')])
     return HttpResponse(json, content_type=u'application/json')
