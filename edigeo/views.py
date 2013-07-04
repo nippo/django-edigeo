@@ -9,32 +9,37 @@ from geoshortcuts.geojson import render_to_geojson
 def subd_fisc(request):
     qs = EdigeoSubdFisc.objects.all()
     json = render_to_geojson(qs, projection=4326)
-    return HttpResponse(json, mimetype=u'application/json')
+    return HttpResponse(json, content_type=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def borne(request):
     qs = EdigeoBorneParcel.objects.all()
     json = render_to_geojson(qs, projection=4326)
-    return HttpResponse(json, mimetype=u'application/json')
+    return HttpResponse(json, content_type=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def bati(request):
     qs = EdigeoBati.objects.all()
     json = render_to_geojson(qs, projection=4326)
-    return HttpResponse(json, mimetype=u'application/json')
+    return HttpResponse(json, content_type=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def parcel(request):
-    qs = EdigeoParcelle.objects.all()
-    json = render_to_geojson(qs, projection=4326, properties=['idu', 'supf'])
-    return HttpResponse(json, mimetype=u'application/json')
+    qs = EdigeoParcelle.objects.all().extra(
+        select={'pk': 'gid',
+                'supf': 'supf', 'idu': 'idu', 'the_geom': 'the_geom'})
+    json = render_to_geojson(qs, projection=4326,
+                             properties=[
+                                 ('idu', 'idu'), ('supf', 'supf')])
+    return HttpResponse(json, content_type=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def lieudit(request):
     qs = EdigeoLieuDit.objects.all()
-    json = render_to_geojson(qs, projection=4326, properties=['gb_ident'])
-    return HttpResponse(json, mimetype=u'application/json')
+    json = render_to_geojson(qs, projection=4326, properties=[
+        ('gb_ident', 'gbindent')])
+    return HttpResponse(json, content_type=u'application/json')
