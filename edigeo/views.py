@@ -28,12 +28,12 @@ def bati(request):
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def parcel(request):
-    qs = EdigeoParcelle.objects.all().extra(
-        select={'pk': 'gid',
-                'supf': 'supf', 'idu': 'idu', 'the_geom': 'the_geom'})
-    json = render_to_geojson(qs, projection=4326,
-                             properties=[
-                                 ('idu', 'idu'), ('supf', 'supf')])
+    qs = EdigeoParcelle.objects.all()
+    json = render_to_geojson(
+        qs,
+        projection=4326,
+        properties=[
+            ('idu', 'idu'), ('supf', 'supf')])
     return HttpResponse(json, content_type=u'application/json')
 
 
