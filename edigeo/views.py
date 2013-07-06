@@ -3,6 +3,8 @@ from models import (EdigeoParcelle, EdigeoLieuDit,
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 from geoshortcuts.geojson import render_to_geojson
+from django.contrib.gis.geos import Polygon
+import ast
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
@@ -29,17 +31,29 @@ def bati(request):
 @user_passes_test(lambda u: u.has_perm('staff'))
 def parcel(request):
     qs = EdigeoParcelle.objects.all()
+    bbox = ast.literal_eval(
+        '(' + request.GET.get('bbox', '-160, -89, 160, 89') + ')')
+
+    polygon = Polygon.from_bbox(bbox)
+    polygon.set_srid(4326)
+    polygon.transform(900913)
     json = render_to_geojson(
         qs,
         projection=4326,
         properties=[
-            ('idu', 'idu'), ('supf', 'supf')])
+            ('idu', 'idu'), ('supf', 'supf')],
+        #extent=polygon
+    )
     return HttpResponse(json, content_type=u'application/json')
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def lieudit(request):
     qs = EdigeoLieuDit.objects.all()
+    bbox = ast.literal_eval(
+        "(" + request.GET.get('bbox', '(0, 180, 0, 180)') + ")")
     json = render_to_geojson(qs, projection=4326, properties=[
-        ('gb_ident', 'gb_ident')])
+        ('gb_ident', 'gb_ident')],
+        extent=Polygon.from_bbox(bbox).set_srid(4326)
+    )
     return HttpResponse(json, content_type=u'application/json')

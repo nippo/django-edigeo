@@ -9,20 +9,15 @@ IOS.l.edigeo.map.lieudits = (function () {
             url: '/layers/edigeo/lieudit',
             property: 'gb_ident'
         },
-        geojson = function geojson() {
+        get = function geojson(bbox) {
             var layer = L.geoJson('', {
                     style: function (feature) {
 
                         return {weight: 1, opacity: 0.4, color: '#F4EFA8'};
-                    },
-                    onEachFeature: function onEachFeature(feature, layer) {
-                        if (feature.properties && feature.properties[config.property]) {
-                            layer.bindPopup(feature.properties[config.property]);
-                        }
                     }
                 }),
                 legend;
-            $.getJSON(config.url, function (data) {
+            $.getJSON(config.url + '?bbox=' + bbox, function (data) {
                 $.each(data.features, function (index, element) {
                     layer.addData(element);
                 });
@@ -32,16 +27,17 @@ IOS.l.edigeo.map.lieudits = (function () {
         };
 
     return {
-        get: geojson
+        get: get
     };
 }());
 
 IOS.l.edigeo.map.parcels = (function () {
     'use strict';
     var config = {
-            url: '/layers/edigeo/parcel'
+            url: '/layers/edigeo/parcel',
+            infos_container: '#infos'
         },
-        geojson = function geojson() {
+        get = function geojson(bbox) {
             var layer,
                 legend;
             layer = L.geoJson('', {
@@ -51,16 +47,14 @@ IOS.l.edigeo.map.parcels = (function () {
                 },
                 onEachFeature: function onEachFeature(feature, layer) {
                     if (feature.properties && feature.properties.idu) {
-                        layer.bindPopup(feature.properties.idu + ' ' + feature.properties.supf);
+                        $(layer).on('click mouseover', function (e) {
+                            $(config.infos_container).html(feature.properties.idu + ' ' + feature.properties.supf);
+                        });
                     }
-                },
-                filter: function (feature, layer) {
-
-                    return map.getBounds().contains(L.geoJson(feature).getBounds());
                 }
             });
 
-            $.getJSON(config.url, function (data) {
+            $.getJSON(config.url + '?bbox=' + bbox, function (data) {
                 $.each(data.features, function (index, element) {
                     layer.addData(element);
                 });
@@ -70,6 +64,6 @@ IOS.l.edigeo.map.parcels = (function () {
         };
 
     return {
-        get: geojson
+        get: get
     };
 }());
