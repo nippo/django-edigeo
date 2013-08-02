@@ -43,7 +43,7 @@ class EdigeoLieuDit(models.Model):
         db_table = u'edigeo_lieu_dit'
 
 
-class EdigeoParcelle(models.Model):
+class Parcelle(models.Model):
     gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
@@ -57,6 +57,9 @@ class EdigeoParcelle(models.Model):
     tex = models.CharField(max_length=80, blank=True)
     the_geom = models.GeometryField(null=True, blank=True)
     objects = models.GeoManager()
+
+    def __unicode__(self):
+        return u'%s' % (self.idu)
 
     class Meta:
         db_table = u'edigeo_parcelle'

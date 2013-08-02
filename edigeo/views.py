@@ -1,4 +1,4 @@
-from models import (EdigeoParcelle, EdigeoLieuDit,
+from models import (Parcelle, EdigeoLieuDit,
                     EdigeoBati, EdigeoBorneParcel, EdigeoSubdFisc)
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
@@ -30,7 +30,7 @@ def bati(request):
 
 @user_passes_test(lambda u: u.has_perm('staff'))
 def parcel(request):
-    qs = EdigeoParcelle.objects.all()
+    qs = Parcelle.objects.all()
     bbox = ast.literal_eval(
         '(' + request.GET.get('bbox', '-160, -89, 160, 89') + ')')
 
