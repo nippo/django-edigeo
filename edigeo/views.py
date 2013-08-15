@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import user_passes_test
 from geoshortcuts.geojson import render_to_geojson
 from django.contrib.gis.geos import Polygon
 import ast
+from django.views.decorators.gzip import gzip_page
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
+@gzip_page
 def subd_fisc(request):
     qs = EdigeoSubdFisc.objects.all()
     json = render_to_geojson(qs, projection=4326)
@@ -15,6 +17,7 @@ def subd_fisc(request):
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
+@gzip_page
 def borne(request):
     qs = EdigeoBorneParcel.objects.all()
     json = render_to_geojson(qs, projection=4326)
@@ -22,6 +25,7 @@ def borne(request):
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
+@gzip_page
 def bati(request):
     qs = EdigeoBati.objects.all()
     json = render_to_geojson(qs, projection=4326)
@@ -29,6 +33,7 @@ def bati(request):
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
+@gzip_page
 def parcel(request):
     qs = Parcelle.objects.all()
     bbox = ast.literal_eval(
@@ -48,6 +53,7 @@ def parcel(request):
 
 
 @user_passes_test(lambda u: u.has_perm('staff'))
+@gzip_page
 def lieudit(request):
     qs = EdigeoLieuDit.objects.all()
     bbox = ast.literal_eval(
