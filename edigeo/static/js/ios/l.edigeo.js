@@ -9,7 +9,7 @@ IOS.l.edigeo.map.lieudits = (function () {
             url: '/layers/edigeo/lieudit',
             property: 'gb_ident'
         },
-        get = function geojson(bbox) {
+        get = function geojson() {
             var layer = L.geoJson('', {
                     style: function (feature) {
 
@@ -17,7 +17,7 @@ IOS.l.edigeo.map.lieudits = (function () {
                     }
                 }),
                 legend;
-            $.getJSON(config.url + '?bbox=' + bbox, function (data) {
+            $.getJSON(config.url, function (data) {
                 $.each(data.features, function (index, element) {
                     layer.addData(element);
                 });
@@ -37,7 +37,7 @@ IOS.l.edigeo.map.parcels = (function () {
             url: '/layers/edigeo/parcel',
             infos_container: '#infos'
         },
-        get = function geojson(bbox) {
+        get = function geojson() {
             var layer,
                 legend;
             layer = L.geoJson('', {
@@ -54,7 +54,7 @@ IOS.l.edigeo.map.parcels = (function () {
                 }
             });
 
-            $.getJSON(config.url + '?bbox=' + bbox, function (data) {
+            $.getJSON(config.url, function (data) {
                 $.each(data.features, function (index, element) {
                     layer.addData(element);
                 });
