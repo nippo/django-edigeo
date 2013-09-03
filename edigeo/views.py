@@ -1,4 +1,4 @@
-from models import (Parcelle, EdigeoLieuDit,
+from models import (EdigeoLieuDit,
                     EdigeoBati, EdigeoBorneParcel, EdigeoSubdFisc)
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
@@ -27,20 +27,6 @@ def borne(request):
 def bati(request):
     qs = EdigeoBati.objects.all()
     json = render_to_geojson(qs, projection=4326)
-    return HttpResponse(json, content_type=u'application/json')
-
-
-@user_passes_test(lambda u: u.has_perm('staff'))
-@gzip_page
-def parcel(request):
-    qs = Parcelle.objects.all()
-    json = render_to_geojson(
-        qs,
-        projection=4326,
-        properties=[
-            ('idu', 'idu'), ('supf', 'supf')],
-        #extent=polygon
-    )
     return HttpResponse(json, content_type=u'application/json')
 
 

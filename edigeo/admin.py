@@ -1,6 +1,7 @@
 from django.contrib.gis import admin
 
-from models import *
+from models import EdigeoBati, EdigeoBorneParcel, \
+    EdigeoLieuDit, Parcelle, EdigeoSubdFisc
 
 admin.site.register(EdigeoBati, admin.ModelAdmin)
 admin.site.register(EdigeoBorneParcel, admin.ModelAdmin)
