@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from cad.models import Insee, Section, Lieudit
 
 
 class EdigeoBati(models.Model):
@@ -45,17 +46,20 @@ class EdigeoLieuDit(models.Model):
 
 class Parcelle(models.Model):
     gid = models.IntegerField(primary_key=True)
+    insee = models.ForeignKey(Insee, null=True)
+    section = models.ForeignKey(Section, null=True)
+    lieudit = models.ForeignKey(Lieudit, null=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
     coar = models.CharField(max_length=1, blank=True)
     codm = models.CharField(max_length=80, blank=True)
     idu = models.CharField(max_length=20, blank=True)
     indp = models.CharField(max_length=80, blank=True)
-    supf = models.DecimalField(null=True, max_digits=65535,
-                               decimal_places=65535, blank=True)
+    supf = models.DecimalField(null=True, max_digits=8,
+                               decimal_places=2, blank=True)
     tex2 = models.CharField(max_length=80, blank=True)
     tex = models.CharField(max_length=80, blank=True)
-    the_geom = models.GeometryField(null=True, blank=True)
+    the_geom = models.GeometryField(null=True, blank=True, srid=900913)
     objects = models.GeoManager()
 
     def __unicode__(self):
