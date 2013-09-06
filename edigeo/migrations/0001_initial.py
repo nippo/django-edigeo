@@ -8,70 +8,7 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'EdigeoBati'
-        db.create_table(u'edigeo_bati', (
-            ('gid', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('gb_ident', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('gb_idnum', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('dur', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('the_geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'edigeo', ['EdigeoBati'])
-
-        # Adding model 'EdigeoBorneParcel'
-        db.create_table(u'edigeo_borne_parcel', (
-            ('gid', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('gb_ident', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('gb_idnum', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('the_geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'edigeo', ['EdigeoBorneParcel'])
-
-        # Adding model 'EdigeoLieuDit'
-        db.create_table(u'edigeo_lieu_dit', (
-            ('gid', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('gb_ident', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('gb_idnum', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('tex10', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex2', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex3', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex4', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex5', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex6', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex7', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex8', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex9', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('the_geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'edigeo', ['EdigeoLieuDit'])
-
-        # Adding model 'Parcelle'
-        db.create_table(u'edigeo_parcelle', (
-            ('gid', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('gb_ident', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('gb_idnum', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('coar', self.gf('django.db.models.fields.CharField')(max_length=1, blank=True)),
-            ('codm', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('idu', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-            ('indp', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('supf', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=65535, decimal_places=65535, blank=True)),
-            ('tex2', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('tex', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('the_geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'edigeo', ['Parcelle'])
-
-        # Adding model 'EdigeoSubdFisc'
-        db.create_table(u'edigeo_subd_fisc', (
-            ('gid', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
-            ('gb_ident', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
-            ('gb_idnum', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('tex', self.gf('django.db.models.fields.CharField')(max_length=80, blank=True)),
-            ('the_geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')(null=True, blank=True)),
-        ))
-        db.send_create_signal(u'edigeo', ['EdigeoSubdFisc'])
-
+        pass
 
     def backwards(self, orm):
         # Deleting model 'EdigeoBati'
@@ -88,7 +25,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'EdigeoSubdFisc'
         db.delete_table(u'edigeo_subd_fisc')
-
 
     models = {
         u'edigeo.edigeobati': {
