@@ -6,25 +6,24 @@ IOS.ns('l.edigeo.map');
 IOS.l.edigeo.map.lieudits = (function () {
     'use strict';
     var config = {
-            url: '/layers/edigeo/lieudit',
-            property: 'gb_ident'
-        },
-        get = function geojson() {
-            var layer = L.geoJson('', {
-                    style: function (feature) {
+        url: '/layers/edigeo/lieudit',
+        property: 'gb_ident'
+    },
+    get = function geojson() {
+        var layer = L.geoJson('', {
+            style: function () {
 
-                        return {weight: 1, opacity: 0.4, color: '#F4EFA8'};
-                    }
-                }),
-                legend;
-            $.getJSON(config.url, function (data) {
-                $.each(data.features, function (index, element) {
-                    layer.addData(element);
-                });
+                return {weight: 1, opacity: 0.4, color: '#F4EFA8'};
+            }
+        });
+        $.getJSON(config.url, function (data) {
+            $.each(data.features, function (index, element) {
+                layer.addData(element);
             });
+        });
 
-            return layer;
-        };
+        return layer;
+    };
 
     return {
         get: get
