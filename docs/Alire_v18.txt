@@ -1,0 +1,178 @@
+Edi2mif : un convertisseur EDIGéo PCI -> MapInfo
+
+---------------------------------------------------------------------------
+Ce logiciel est diffusé sous les termes et conditions de la licence CECILL
+Voir le fichier joint Licence_CeCILL_V2-fr.txt pour plus de détails
+---------------------------------------------------------------------------
+
+Version : edi2mif.pl version 1.8 (C) Michel WURTZ 2006 - 2011
+---------
+
+Nouveautés de la v1.8 (20/12/2011) :
+- la détection des doublons introduits dans la version 1.6 se heurte au
+  problème des exports EDIGéO qui donnent des identifiants identiques à
+  des objets différents (numérotation par section et non par commune).
+  La détection de doublon a donc été modifiée pour en tenir compte et
+  ne pas éliminer d'objets à tort.
+
+Nouveautés de la v1.7 (3/10/2011) :
+- La v1.5 a introduit un bug dans la couche des écritures (fichiers CVS
+  et MIF/MID).  Celui-ci a été corrigé dans cette version.
+- Les extensions de la norme (demandés par Alsace+Moselle ?) créant des
+  fichiers I_2_4_1 (boulons scellés) et I_2_4_2 sont pris en compte.
+  Plus généralement, toute nouvelle couche devrait désormais produire
+  des fichiers MIF/MID lisibles (mais sans symbolisation : les valeurs
+  par défaut seront ensuite utilisées par MapInfo)
+
+Nouveautés de la v1.6 (27/9/2011) :
+- Correction d'un bug sur les objets surfaciques ayant plusieurs contours
+ (premier contour doublonné)
+- Détection des objets présents plusieurs fois (dans plusieurs échanges
+  concernant une même commune): les doublons sont automatiquement supprimés.
+
+Nouveautés de la v1.5 (non diffusée):
+- Correction d'un bug dans les projections pour les Antilles et la Guyane
+  (erreur de signe dans un paramètre)
+- Modification du code pour qu'il puisse fonctionner avec certaines versions
+  récentes de perl (usage explicite des variables implicites $_ et @_)
+- Impression du numéro de version du programme à son lancement
+- Lors de la création des écriture, un fichier texte "CSV" est également
+  généré, avec le même nom et les mêmes données (position en X et en Y,
+  police, taille, orientation et texte des écritures) que le fichier MIF.
+  Ceci permet le traitement des écritures par d'autres logiciels SIG que
+  MapInfo.  Le fichier CSV est aussi directement lisible avec un tableur
+  (Excel, etc.).
+  Attention, certains logiciels (dont le tableur d'OpenOffice en version
+  française) ne transforment pas le point décimal des nombres en virgule
+  automatiquement à l'importation.
+  La solution de contournement consiste dans ce cas à remplacer dans le
+  fichier CSV les virgules par des tabulations, puis les points par des
+  virgules, avant importation.
+
+Nouveauté de la v1.4 :
+- Amélioration de la prise en charge des projections (Lambert 93,
+  lambert 93 CC, projection des DOM)
+- En cas de projection non prise en compte, on se rabat sur une projection
+  "Non terrestre" en conservant les valeurs de coordonnées d'origine, avec
+  un intervalle assez important (0 - 100.000.000) en mètre pour pouvoir quand
+  même récupérer les données
+
+Nouveautés de la v1.3 :
+------------
+Correction de 3 bugs mineurs :
+ - la symbolisation ne fonctionnait que pour les objets surfaciques
+ - les fichiers .thf n'étaient pas pris en compte car la boucle principale
+   distinguait majuscules et minuscules
+ - la conversion de MIF/MID en TAB se passait mal dans le cas des polygones
+   à trou (bâtiment avec cour, etc.) à cause d'un bug dans tab2tab.  Ceci a
+   été corrigé en laissant à Mapinfo le soin de faire la conversion, edi2mif
+   se contentant de placer les ordres dans un fichier "IMPORT.WOR" dans le
+   répertoire de sortie.  Il suffit de double-cliquer sur ce fichier pour
+   lancer la conversion dans MapInfo
+
+Amélioration de la symbolisation :
+ - Dans le cas du bâti, le code "DUR" précise s'il s'agit d'un bâtiment en dur
+   ou non.  Une seconde table permet de donner deux types de symbole en fonction
+   de ce code, à condition de remplacer la ligne de la première table par le
+   mot-clé "bati"
+
+
+Détail :
+--------
+Edi2mif est Convertisseur simple EDIGEO PCI vers MIF/MID
+
+Simple signifie qu'il y a peu de vérification sur l'échange EDIGéO et que l'on
+risque d'obtenir des résultats imprévisibles en cas de données non cohérentes
+en entrée...
+Cependant, il a été testé sur plusieurs centaines de communes et les erreurs
+les plus fréquentes des fichiers EDIGéO PCI sont repérées et corrigées si
+possible (certains polygones peuvent être incomplets ou éclatés si le message
+"ERREUR de chaînage pour $obj (arc $arc) impossible à corriger !!!" apparaît).
+
+Simple signifie aussi qu'il n'y a qu'un seul format de sortie : MIF/MID, et
+optionnellement le format MapInfo natif TAB.  Dans ce dernier cas, le traducteur
+libre utilisé (tab2tab, voir http://mitab.maptools.org) peut aussi afficher des
+erreur ou mal se comporter : la version actuelle 1.5.1 traduit mal les polygones
+à trous (bâtiments avec cours, par exemple).  Dans tous les cas, l'utilisation
+des outils officiels MapInfo permet d'obtenir un affichage correct, sans erreur
+d'importation.
+
+Simple signifie aussi que le programme n'est sûrement pas très optimisé du
+point de vue de la rapidité.
+
+Simple est aussi la raison pour laquelle il a été écrit en perl ( basique
+pour le rendre indépendant du système d'exploitation), langage "sale" mais
+très efficace pour faire du traitement de texte un peu sophistiqué...
+
+Bon, maintenant, c'est du logiciel "libre" (Cf ci-dessus), et donc si vous
+voulez mieux, à vous de vous retrousser les manches...
+
+Installation et prérequis :
+---------------------------
+Edi2mif est un programme écrit en perl.  Il faut donc un interpréteur perl.
+Ce dernier est en principe standard sous Linux/Unix (au plus, il faut installer
+le paquet adéquat).
+Sous Windows, on a le choix entre :
+- installer un interpréteur perl sous Windows et utiliser la fenêtre de
+  commande pour lancer edi2mif. => je recommande ActivePerl :
+  http://downloads.activestate.com/ActivePerl/Windows/5.8/ActivePerl-5.8.8.817-MSWin32-x86-257965.msi
+- installer une suite d'outils unixien (Cygwin, ou mieux Msys), ce qui permet
+  de disposer également d'un interpréteur shell, utile pour convertir des lots
+  entiers. Voir http://www.mingw.org/
+
+La traduction des MIF/MID en TAB nécessite de disposer du SIG MapInfo (si on
+n'en dispose pas, le format TAB n'est pas très utile).  A cet effet un fichier
+IMPORT.WOR est créé dans le même répertoire que les fichiers MIF/MID créés.
+Il suffit de double-cliquer sur ce dernier pour que MapInfo lance la traduction.
+
+Utilisation :
+-------------
+perl edi2mif.pl <répertoire contenant les fichiers EdiGEO> <répertoire pour les fichiers MapInfo>
+
+Certains paramètres sont modifiables (en début de programme)
+
+Mettre $debug_on à 1 ou plus pour des infos supplémentaires dans le log (par
+exemple en cas de problème)
+Par défaut, $debug_on = 0;
+
+On peut modifier la taille des écritures à l'écran en donnant un facteur
+d'échelle $echelle_texte différent de 1.0 (valeur par défaut);
+
+Le nom des tables MapInfo créées à partir des objets EDIGéO PCI peut être
+modifié en modifiant la table %tfimi.  Un cas particulier est celui de la
+table contenant les textes (correspond aux objets du type 'Z_1_2_2'), qui
+sont placés dans la table 'ECRITURES' par défaut. Si on remplace 'ECRITURE'
+par '-', aucune table de textes n'est créée.
+
+Enfin, la table %tsymbol permet de définir (avec la syntaxe MIF/MID MapInfo)
+la symbolisation à utiliser par défaut pour les objets créés dans chaque table.
+Il faut mettre la ou les lignes à utiliser dans le .mif, y compris la fin de
+ligne (\n), en fonction du type d'objet (ponctuel, linéaire ou surfacique).
+Dans le cas du bâti, on peut remplacer celle-ci par le mot clé "bati" et mettre
+dans la table %tsbati la symbolisation des bâtiments en dur ("01") et des
+autres ("02").  C'est ce que fait le programme par défaut.
+
+Il est possible de convertir facilement un lot de fichier si on dispose d'un
+interpréteur shell.  Le programme suivant convertit les échanges de chaque
+répertoire ediXXX dans mifXXX, et enregistre les logs dans logXXX.
+Il suffit de rechercher dans ces derniers la chaîne "Erreur" ou "ERREUR"
+pour voir si tout s'est bien passé une fois la traduction faite.
+
+Ceci est très utile si on veut convertir un département entier (un test sur
+l'Ain a donné 8h20, sur un Pentium Dual Core 2.8 GHz, 1 Go RAM, disque SCSI).
+
+--------------------------- batch.sh
+#!/bin/sh
+for f in edi???
+do
+ 	perl edi2mif.pl $f `echo $f | sed 's/edi/mif/'` > `echo $f | sed 's/edi/log/'` 2>&1
+	echo $f termine
+done
+-------------------------- fin du fichier
+
+TODO list :
+-----------
+- ajouter une interface permettant la conversion d'un ensemble de réperoires
+- Internationaliser ?
+- ajouter une interface graphique ?
+

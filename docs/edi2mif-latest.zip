@@ -1,0 +1,115 @@
+
+		<?xml version="1.0" encoding="utf-8"?>
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+		<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
+		<title>FusionForge de l'ADULLACT: La page demandée  n'a pas été trouvée (Erreur 404)</title><link rel="icon" type="image/png" href="https://adullact.net/images/icon.png" /><link rel="shortcut icon" type="image/png" href="https://adullact.net/images/icon.png" />
+				<link rel="alternate" title="FusionForge de l&#039;ADULLACT - Project News Highlights RSS" href="https://adullact.net/export/rss_sfnews.php" type="application/rss+xml"/>
+				<link rel="alternate" title="FusionForge de l&#039;ADULLACT - Project News Highlights RSS 2.0" href="https://adullact.net/export/rss20_news.php" type="application/rss+xml"/>
+				<link rel="alternate" title="FusionForge de l&#039;ADULLACT - New Projects RSS" href="https://adullact.net/export/rss_sfprojects.php" type="application/rss+xml"/>
+				<link rel="alternate" title="FusionForge de l&#039;ADULLACT - New Activity RSS" href="https://adullact.net/export/rss20_activity.php?group_id=0" type="application/rss+xml"/><link rel="search" title="FusionForge de l'ADULLACT" href="https://adullact.net/export/search_plugin.php" type="application/opensearchdescription+xml"/>
+			<link rel="stylesheet" type="text/css" href="/themes/css/fusionforge.css?1366206394"/>
+			<link rel="stylesheet" type="text/css" href="/scripts/yui/reset-fonts-grids/reset-fonts-grids.css?1302722910"/>
+			<link rel="stylesheet" type="text/css" href="/scripts/yui/base/base-min.css?1302722906"/>
+			<link rel="stylesheet" type="text/css" href="/themes/adullact-v3/css/adullact-v3.css?1366206589"/>
+
+			<script type="text/javascript" src="/scripts/prototype/prototype.js"></script>
+			<script type="text/javascript" src="/scripts/scriptaculous/scriptaculous.js"></script>
+			<script type="text/javascript" src="/scripts/codendi/Tooltip.js"></script>
+			<script type="text/javascript" src="/scripts/codendi/LayoutManager.js"></script>
+			<script type="text/javascript" src="/scripts/codendi/ReorderColumns.js"></script>
+			<script type="text/javascript" src="/scripts/codendi/codendi-1236793993.js"></script>
+			<script type="text/javascript" src="/scripts/codendi/validate.js"></script>
+			<script type="text/javascript" src="/js/common.js"></script>
+			<script language="JavaScript" type="text/javascript">/* <![CDATA[ */
+			/* ]]> */</script><script type="text/javascript" src="/themes/adullact-v3/js/adullact-v3.js"></script>			<meta name="Forge-Identification" content="FusionForge:5.2.1+20130429-1+adullact3" />
+</head>
+		<body>
+		<div id="doc2" class="lien-soulignement">
+		<table id="hd" summary="">
+		<tr>
+			<td id="hd-col1">
+			<h1><a href="/"> <img id="gforge-logo"
+				src="/themes/adullact-v3/image/hd_logo_gforge_adullact_false.gif"
+				alt="Accueil FusionForge Adullact.net" /> </a></h1>
+			</td>
+			<td id="hd-col2">
+
+			<div id="login-box" class="lien-soulignement">
+				<a id="login-box-login" href="/account/login.php">S'identifier</a>
+				<a id="login-box-newaccount" href="/account/register.php">Nouveau compte</a>
+			</div> <!-- id="login-box" -->
+			<div id="search-box"><form id="searchBox" action="/search/" method="get">
+			<div><select name="type_of_search"><option value="soft">Projet</option>
+<option value="people">Personnes</option>
+<option value="alldocs">Documents</option>
+<option value="skill">Savoir-faire</option>
+</select><input type="hidden" value="0" name="group_id" />
+<input type="text" size="12" id="searchBox-words" name="words" value="" />
+<input type="submit" name="Search" value="Rechercher" />
+</div></form>
+			</div><!-- id="search-box" -->
+			<div id="nav" class="lien-soulignement">
+            <!-- tabGenerator (with table) -->
+
+            <table width="100%">
+                <tr>
+                    
+            <td style="width: 16 %"
+                class="align-center tab-selected"><a href="/">Accueil</a></td> 
+
+            <td style="width: 16 %"
+                class="align-center"><a href="/my/">Ma&nbsp;page</a></td> 
+
+            <td style="width: 16 %"
+                class="align-center"><a href="/softwaremap/">Projets</a></td> 
+
+            <td style="width: 16 %"
+                class="align-center"><a href="/snippet/">Échantillons&nbsp;de&nbsp;code</a></td> 
+
+            <td style="width: 16 %"
+                class="align-center"><a href="/people/">Demande&nbsp;d'aide</a></td> 
+</tr>
+</table>
+            
+
+            <!-- end tabGenerator -->
+            
+
+			</div><!-- id="nav" -->
+			</td>
+		</tr>
+		</table><!-- id="hd" -->
+		<div id="nav2" class="lien-soulignement">
+        </div><!-- id="nav2" -->
+<div id="maindiv">
+	        </div> <!-- maindiv -->
+		<div id="ft" class="lien-soulignement">
+		<table summary="">
+			<tr>
+				<td id="ft-col1"><img src="/themes/adullact-v3/image/logo_feder.jpg" alt="FEDER" /></td>
+				<td id="ft-col2">
+					<a href="http://pole-aquinetic.fr/179-H-bergement-de-la-forge-Adullact">
+					<img src="/themes/adullact-v3/image/logo_aquinetic.png" alt="AQUINETIC Aquitaine" />
+					</a>
+</td>
+				<td id="ft-col3">
+					<a href="http://fusionforge.org/">
+					<img src="https://adullact.net/images/pow-fusionforge.png" alt="Powered By FusionForge Collaborative Development Environment" />
+					</a>
+				</td>
+				<td id="ft-col4">
+					<a href="/themes/adullact-v3/charte-adullact.php">Charte d'utilisation</a> / 
+					<a href="mailto:support@adullact.org">Nous contacter</a> / 
+					<a href="/themes/adullact-v3/mentionslegales.php">Mentions l&eacute;gales</a> 
+			
+				</td>
+				<td id="ft-col5"><a href="#hd" class="gototop">Haut de page</a></td>
+			</tr>
+			</table>
+			</div>
+		</div><!-- id="doc2" -->
+		</body>
+		</html>
+		
