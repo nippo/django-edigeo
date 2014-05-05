@@ -9,6 +9,7 @@ edigeobati_mapping = {
 }
 
 class EdigeoBati(models.Model):
+    gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
     dur = models.CharField(max_length=80, blank=True)
@@ -26,6 +27,7 @@ edigeoborneparcel_mapping = {
 
 
 class EdigeoBorneParcel(models.Model):
+    gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
     the_geom = models.GeometryField(srid=3857)
@@ -116,6 +118,7 @@ edigeosubdfisc_mapping = {
 }
 
 class EdigeoSubdFisc(models.Model):
+    gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
     tex = models.CharField(max_length=80, blank=True)
