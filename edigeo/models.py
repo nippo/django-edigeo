@@ -52,6 +52,7 @@ edigeolieudit_mapping = {
 
 
 class EdigeoLieuDit(models.Model):
+    gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
     tex10 = models.CharField(max_length=80, blank=True)
@@ -85,6 +86,7 @@ edigeoparcelle_mapping = {
 }
 
 class EdigeoParcelle(models.Model):
+    gid = models.IntegerField(primary_key=True)
     insee = models.ForeignKey(Insee, null=True)
     gb_ident = models.CharField(max_length=40, blank=True)
     gb_idnum = models.IntegerField(null=True, blank=True)
