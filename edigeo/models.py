@@ -1,12 +1,18 @@
 from django.contrib.gis.db import models
 from cad.models import Insee
 
-edigeobati_mapping = {
-    'gb_ident': 'GB_IDENT',
-    'gb_idnum': 'GB_IDNUM',
-    'dur': 'DUR',
-    'the_geom': 'MULTIPOLYGON',
-}
+
+class EdigeoSection(models.Model):
+    gb_ident = models.CharField(max_length=40, blank=True)
+    gb_idnum = models.CharField(max_length=40, null=True, blank=True)
+    idu = models.CharField(unique=True, max_length=100)
+    tex = models.CharField(max_length=80, blank=True)
+    the_geom = models.GeometryField(srid=3857)
+    objects = models.GeoManager()
+
+    class Meta:
+        db_table = u'edigeo_section'
+
 
 class EdigeoBati(models.Model):
     gid = models.IntegerField(primary_key=True)
@@ -19,13 +25,6 @@ class EdigeoBati(models.Model):
         db_table = u'edigeo_bati'
 
 
-edigeoborneparcel_mapping = {
-    'gb_ident': 'GB_IDENT',
-    'gb_idnum': 'GB_IDNUM',
-    'the_geom': 'MULTIPOLYGON',
-}
-
-
 class EdigeoBorneParcel(models.Model):
     gid = models.IntegerField(primary_key=True)
     gb_ident = models.CharField(max_length=40, blank=True)
@@ -34,23 +33,6 @@ class EdigeoBorneParcel(models.Model):
 
     class Meta:
         db_table = u'edigeo_borne_parcel'
-
-
-edigeolieudit_mapping = {
-    'gb_ident': 'GB_IDENT',
-    'gb_idnum': 'GB_IDNUM',
-    'tex10': 'TEX10',
-    'tex2': 'TEX2',
-    'tex3': 'TEX3',
-    'tex4': 'TEX4',
-    'tex5': 'TEX5',
-    'tex6': 'TEX6',
-    'tex7': 'TEX7',
-    'tex8': 'TEX8',
-    'tex9': 'TEX9',
-    'tex': 'TEX',
-    'the_geom': 'MULTIPOLYGON',
-}
 
 
 class EdigeoLieuDit(models.Model):
@@ -74,19 +56,6 @@ class EdigeoLieuDit(models.Model):
         db_table = u'edigeo_lieu_dit'
 
 
-edigeoparcelle_mapping = {
-    'gb_ident': 'GB_IDENT',
-    'gb_idnum': 'GB_IDNUM',
-    'coar': 'COAR',
-    'codm': 'CODM',
-    'idu': 'IDU',
-    'indp': 'INDP',
-    'supf': 'SUPF',
-    'tex2': 'TEX2',
-    'tex': 'TEX',
-    'the_geom': 'MULTIPOLYGON',
-}
-
 class EdigeoParcelle(models.Model):
     gid = models.IntegerField(primary_key=True)
     insee = models.ForeignKey(Insee, null=True)
@@ -109,13 +78,6 @@ class EdigeoParcelle(models.Model):
     class Meta:
         db_table = u'edigeo_parcelle'
 
-
-edigeosubdfisc_mapping = {
-    'gb_ident': 'GB_IDENT',
-    'gb_idnum': 'GB_IDNUM',
-    'tex': 'TEX',
-    'the_geom': 'MULTIPOLYGON',
-}
 
 class EdigeoSubdFisc(models.Model):
     gid = models.IntegerField(primary_key=True)
