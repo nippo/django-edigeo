@@ -12,6 +12,7 @@ from edigeo.models import EdigeoParcelle
 from edigeo.models import EdigeoSubdFisc
 from edigeo.models import EdigeoBorneParcel
 from edigeo.models import EdigeoBati
+from edigeo.models import EdigeoCommune
 from django.contrib.gis.geos import GEOSGeometry
 from django.db.utils import IntegrityError
 
@@ -133,6 +134,21 @@ class Command(BaseCommand):
             except:
                 self.stderr.write('  A problem occured with this bati!')
 
+    def save_commune(self, layer):
+        for f in layer:
+            s = EdigeoCommune()
+            s.idu = f['idu'].value
+            s.gb_ident = f['gb_ident'].value
+            try:
+                s.the_geom = GEOSGeometry(f.geom.geojson, srid=27563)
+                s.save()
+            except IntegrityError:
+                self.stdout.write(
+                    '  Commune %s is already in DB!' % f['idu'])
+            except:
+                self.stderr.write(
+                    '  A problem occured with this commune %s!' % f['idu'])
+
     def do_it_or_not(self, layer):
         if layer.name == 'SECTION':
             self.save_section(layer)
@@ -146,6 +162,8 @@ class Command(BaseCommand):
             self.save_borne_parcel(layer)
         elif layer.name == 'BATI':
             self.save_bati(layer)
+        elif layer.name == 'COMMUNE':
+            self.save_commune(layer)
 
     def handle(self, *args, **options):
         sections_path = self.get_sections_path(args)
@@ -157,4 +175,4 @@ class Command(BaseCommand):
             section = DataSource(os.path.join(tempfile.gettempdir(), 'mif'))
             for layer in section:
                 self.do_it_or_not(layer)
-                self.init_dirs()
+            #self.init_dirs()

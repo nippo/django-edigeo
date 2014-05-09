@@ -1,6 +1,16 @@
 from django.contrib.gis.db import models
 
 
+class EdigeoCommune(models.Model):
+    idu = models.CharField(unique=True, max_length=100)
+    gb_ident = models.CharField(max_length=80, blank=True, unique=True)
+    the_geom = models.GeometryField(srid=3857)
+    objects = models.GeoManager()
+
+    class Meta:
+        db_table = u'edigeo_commune'
+
+
 class EdigeoSection(models.Model):
     idu = models.CharField(unique=True, max_length=100)
     tex = models.CharField(max_length=80, blank=True)
