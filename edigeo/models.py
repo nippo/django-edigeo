@@ -1,7 +1,4 @@
 from django.contrib.gis.db import models
-from cad.models import Insee
-from datetime import datetime
-import hashlib
 
 
 class EdigeoSection(models.Model):
@@ -25,7 +22,6 @@ class EdigeoLieuDit(models.Model):
 
 
 class EdigeoParcelle(models.Model):
-    insee = models.ForeignKey(Insee, null=True)
     idu = models.CharField(max_length=20, blank=True, unique=True)
     supf = models.DecimalField(null=True, max_digits=8,
                                decimal_places=2, blank=True)
@@ -61,4 +57,3 @@ class EdigeoBati(models.Model):
 
     class Meta:
         db_table = u'edigeo_bati'
-
