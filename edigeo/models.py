@@ -33,6 +33,8 @@ class EdigeoLieuDit(models.Model):
 
 class EdigeoParcelle(models.Model):
     idu = models.CharField(max_length=20, blank=True, unique=True)
+    commune_idu = models.CharField(max_length=20, blank=True, null=True)
+    section_idu = models.CharField(max_length=20, blank=True, null=True)
     supf = models.DecimalField(null=True, max_digits=8,
                                decimal_places=2, blank=True)
     tex = models.CharField(max_length=80, blank=True)
