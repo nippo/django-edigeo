@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import os
 import tarfile
 import shutil
@@ -19,7 +19,7 @@ from django.db.utils import IntegrityError
 
 class Command(BaseCommand):
     args = '<tar_path>'
-    help = 'Load EDIGEO data for the specified tables'
+    help = 'Load EDIGEO data from specifified dir'
 
     def get_sections_path(self, args):
 
@@ -91,7 +91,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=27563)
                 s.save()
             except IntegrityError:
-               EdigeoParcelle.objects.filter(idu=f['idu']).update(
+                EdigeoParcelle.objects.filter(idu=f['idu']).update(
                     commune_idu=f['idu'].value[:3],
                     section_idu=f['idu'].value[:8]
                 )
@@ -154,21 +154,21 @@ class Command(BaseCommand):
                     '  A problem occured with this commune %s!' % f['idu'])
 
     def do_it_or_not(self, layer):
-        if layer.name == 'PARCELLE':
-            self.save_parcelle(layer)
-        if layer.name == 'SECTION':
-            self.save_section(layer)
-        elif layer.name == 'LIEU_DIT':
-            self.save_lieu_dit(layer)
-        elif layer.name == 'PARCELLE':
-            self.save_parcelle(layer)
-        elif layer.name == 'SUBD_FISC':
-            self.save_subd_fisc(layer)
-        elif layer.name == 'BORNE_PARCEL':
-            self.save_borne_parcel(layer)
-        elif layer.name == 'BATI':
-            self.save_bati(layer)
-        elif layer.name == 'COMMUNE':
+        # if layer.name == 'PARCELLE':
+            # self.save_parcelle(layer)
+        # if layer.name == 'SECTION':
+            # self.save_section(layer)
+        # elif layer.name == 'LIEU_DIT':
+            # self.save_lieu_dit(layer)
+        # elif layer.name == 'PARCELLE':
+            # self.save_parcelle(layer)
+        # elif layer.name == 'SUBD_FISC':
+            # self.save_subd_fisc(layer)
+        # elif layer.name == 'BORNE_PARCEL':
+            # self.save_borne_parcel(layer)
+        # elif layer.name == 'BATI':
+            # self.save_bati(layer)
+        if layer.name == 'COMMUNE':
             self.save_commune(layer)
 
     def handle(self, *args, **options):
