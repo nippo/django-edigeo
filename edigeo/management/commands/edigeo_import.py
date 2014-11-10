@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-import os
-import tarfile
-import shutil
-import tempfile
-import hashlib
-from django.core.management.base import BaseCommand, CommandError
 from django.contrib.gis.gdal import DataSource
-from edigeo.models import EdigeoSection
+from django.contrib.gis.geos import GEOSGeometry
+from django.core.management.base import BaseCommand, CommandError
+from django.db.utils import IntegrityError
+from edigeo.models import EdigeoBati
+from edigeo.models import EdigeoBorneParcel
+from edigeo.models import EdigeoCommune
 from edigeo.models import EdigeoLieuDit
 from edigeo.models import EdigeoParcelle
+from edigeo.models import EdigeoSection
 from edigeo.models import EdigeoSubdFisc
-from edigeo.models import EdigeoBorneParcel
-from edigeo.models import EdigeoBati
-from edigeo.models import EdigeoCommune
-from django.contrib.gis.geos import GEOSGeometry
-from django.db.utils import IntegrityError
+import hashlib
+import os
+import shutil
+import tarfile
+import tempfile
 
 
 class Command(BaseCommand):
@@ -22,7 +22,6 @@ class Command(BaseCommand):
     help = 'Load EDIGEO data from specifified dir'
 
     def add_arguments(self, parser):
-
         parser.add_argument('--path')
         parser.add_argument('--layers', default='COMMUNE SECTION LIEU_DIT \
                             PARCELLE SUBD_FISC BATI BORNE_PARCEL')
@@ -32,7 +31,6 @@ class Command(BaseCommand):
         parser.add_argument('--epsg', default=2154)
 
     def init_dirs(self):
-
         for d in ['mif', 'in', 'log']:
             if os.path.exists(os.path.join(tempfile.gettempdir(), d)):
                 shutil.rmtree(os.path.join(tempfile.gettempdir(), d))
@@ -179,7 +177,6 @@ class Command(BaseCommand):
                     self.save_commune(layer)
 
     def handle(self, *args, **options):
-
         self.epsg = int(options['epsg'])
 
         sections_path = options['path']
