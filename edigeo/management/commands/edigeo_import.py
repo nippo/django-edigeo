@@ -23,8 +23,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--path')
-        parser.add_argument('--layers', default='COMMUNE SECTION LIEU_DIT \
-                            PARCELLE SUBD_FISC BATI BORNE_PARCEL')
+        parser.add_argument('--layers', default='COMMUNE SECTION LIEU_DIT PARCELLE SUBD_FISC BATI BORNE_PARCEL')  # NOQA
 
         # Autres commandes = 2154
         # Commande 0 27563
@@ -34,7 +33,8 @@ class Command(BaseCommand):
         for d in ['mif', 'in', 'log']:
             if os.path.exists(os.path.join(tempfile.gettempdir(), d)):
                 shutil.rmtree(os.path.join(tempfile.gettempdir(), d))
-                os.makedirs(os.path.join(tempfile.gettempdir(), d))
+            os.makedirs(os.path.join(tempfile.gettempdir(), d))
+            self.stderr.write('%s created!' % d)
 
     def generate_mif(self, path, files):
         tar = tarfile.open(os.path.join(path, files.pop()))
@@ -191,5 +191,6 @@ class Command(BaseCommand):
             self.generate_mif(path, files)
             section = DataSource(os.path.join(tempfile.gettempdir(), 'mif'))
             for layer in section:
-                self.update_db(layer, options['layers'])
+                for imported_layer in options['layers'].split(' '):
+                    self.update_db(layer, imported_layer)
             self.init_dirs()
