@@ -18,7 +18,6 @@ import tempfile
 
 
 class Command(BaseCommand):
-    args = '<tar_path>'
     help = 'Load EDIGEO data from specifified dir'
 
     def add_arguments(self, parser):
@@ -193,4 +192,3 @@ class Command(BaseCommand):
             for layer in section:
                 for imported_layer in options['layers'].split(' '):
                     self.update_db(layer, imported_layer)
-            self.init_dirs()
