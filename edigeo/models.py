@@ -41,7 +41,7 @@ class EdigeoParcelle(models.Model):
     the_geom = models.GeometryField(srid=3857)
     objects = models.GeoManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % (self.idu)
 
     class Meta:
