@@ -18,7 +18,7 @@ import tempfile
 
 
 class Command(BaseCommand):
-    help = 'Load EDIGEO data from specifified dir'
+    help = 'Load EDIGEO data from specifified dir. Command dir should be unzipped. Usage: manage.py edigeo_import --path="" --layers="COMMUNE SECTION LIEU_DIT PARCELLE SUBD_FISC BATI BORNE_PARCEL"'  # NOQA
 
     def add_arguments(self, parser):
         parser.add_argument('--path')
@@ -179,15 +179,22 @@ class Command(BaseCommand):
         self.epsg = int(options['epsg'])
 
         sections_path = options['path']
-        if not os.path.exists(sections_path):
-            raise CommandError('Invalid path!')
+        if sections_path is None:
+            raise CommandError('Invalid path! Usage: manage.py edigeo_import --path="" --layers="COMMUNE SECTION LIEU_DIT PARCELLE SUBD_FISC BATI BORNE_PARCEL"')  # NOQA
 
+        if not os.path.exists(sections_path):
+            raise CommandError('Invalid path! Usage: manage.py edigeo_import --path="" --layers="COMMUNE SECTION LIEU_DIT PARCELLE SUBD_FISC BATI BORNE_PARCEL"')  # NOQA
+
+
+        # Will create dir in tmp/ and empty theme
         self.init_dirs()
 
+        # For each EDIGEO dir (one by section)
         for path, dirname, files in os.walk(sections_path):
             if len(files) == 0:
                 continue
             self.generate_mif(path, files)
+            self.stdout.write('  Managing section: ' + path)
             section = DataSource(os.path.join(tempfile.gettempdir(), 'mif'))
             for layer in section:
                 for imported_layer in options['layers'].split(' '):
