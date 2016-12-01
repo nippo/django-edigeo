@@ -10,4 +10,23 @@ from django.contrib import admin
 
 @admin.register(EdigeoCommune)
 class EdigeoCommuneAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'idu',
+        'gb_ident'
+    )
+
+
+@admin.register(EdigeoSection)
+class EdigeoSectionAdmin(admin.ModelAdmin):
+    list_display = (
+        'idu',
+        'tex'
+    )
+
+
+@admin.register(EdigeoLieuDit)
+class EdigeoLieuDitAdmin(admin.ModelAdmin):
+    list_display = (
+        'tex',
+        'md5'
+    )

@@ -110,7 +110,7 @@ class Command(BaseCommand):
         for f in layer:
             s = EdigeoLieuDit()
             s.tex = f['tex'].value.upper()
-            s.md5 = hashlib.sha224(f.geom.geojson).hexdigest()
+            s.md5 = hashlib.sha224(f.geom.geojson.encode('utf-8')).hexdigest()
             try:
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
@@ -157,24 +157,6 @@ class Command(BaseCommand):
                 self.stderr.write(
                     '  A problem occured with this COMMUNE %s!' % f['idu'])
 
-    def update_db(self, layer, options):
-        for opt in options.split(' '):
-            if layer.name == opt:
-                if opt == 'BORNE_PARCEL':
-                    self.save_borne_parcel(layer)
-                if opt == 'BATI':
-                    self.save_bati(layer)
-                if opt == 'SUBD_FISC':
-                    self.save_subd_fisc(layer)
-                if opt == 'PARCELLE':
-                    self.save_parcelle(layer)
-                if opt == 'LIEU_DIT':
-                    self.save_lieu_dit(layer)
-                if opt == 'SECTION':
-                    self.save_section(layer)
-                if opt == 'COMMUNE':
-                    self.save_commune(layer)
-
     def handle(self, *args, **options):
         self.epsg = int(options['epsg'])
 
@@ -195,7 +177,22 @@ class Command(BaseCommand):
                 continue
             self.generate_mif(path, files)
             self.stdout.write('  Managing section: ' + path)
-            section = DataSource(os.path.join(tempfile.gettempdir(), 'mif'))
-            for layer in section:
-                for imported_layer in options['layers'].split(' '):
-                    self.update_db(layer, imported_layer)
+            command = DataSource(os.path.join(tempfile.gettempdir(), 'mif'))
+            for layer in command:
+                if layer.name in options['layers'].split(' '):
+                    self.stdout.write('         Managing layer: ' + layer.name)
+                    if layer.name == 'BORNE_PARCEL':
+                        self.save_borne_parcel(layer)
+                    if layer.name == 'BATI':
+                        self.save_bati(layer)
+                    if layer.name == 'SUBD_FISC':
+                        self.save_subd_fisc(layer)
+                    if layer.name == 'PARCELLE':
+                        self.save_parcelle(layer)
+                    if layer.name == 'LIEU_DIT':
+                        self.save_lieu_dit(layer)
+                    if layer.name == 'SECTION':
+                        self.save_section(layer)
+                    if layer.name == 'COMMUNE':
+                        self.save_commune(layer)
+
