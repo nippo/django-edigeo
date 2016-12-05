@@ -33,7 +33,6 @@ class Command(BaseCommand):
             if os.path.exists(os.path.join(tempfile.gettempdir(), d)):
                 shutil.rmtree(os.path.join(tempfile.gettempdir(), d))
             os.makedirs(os.path.join(tempfile.gettempdir(), d))
-            self.stderr.write('%s created!' % d)
 
     def generate_mif(self, path, files):
         tar = tarfile.open(os.path.join(path, files.pop()))
@@ -48,7 +47,7 @@ class Command(BaseCommand):
     def save_borne_parcel(self, layer):
         for f in layer:
             s = EdigeoBorneParcel()
-            s.md5 = hashlib.sha224(f.geom.geojson).hexdigest()
+            s.md5 = hashlib.sha224(f.geom.geojson.encode('utf-8')).hexdigest()
             try:
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
@@ -60,7 +59,7 @@ class Command(BaseCommand):
     def save_bati(self, layer):
         for f in layer:
             s = EdigeoBati()
-            s.md5 = hashlib.sha224(f.geom.geojson).hexdigest()
+            s.md5 = hashlib.sha224(f.geom.geojson.encode('utf-8')).hexdigest()
             try:
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
@@ -73,7 +72,7 @@ class Command(BaseCommand):
         for f in layer:
             s = EdigeoSubdFisc()
             s.tex = f['tex'].value
-            s.md5 = hashlib.sha224(f.geom.geojson).hexdigest()
+            s.md5 = hashlib.sha224(f.geom.geojson.encode('utf-8')).hexdigest()
             try:
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
@@ -152,7 +151,7 @@ class Command(BaseCommand):
                     the_geom=the_geom
                 )
                 self.stdout.write(
-                    '  COMMUNE %s already was in DB!' % f['idu'])
+                    '         COMMUNE %s already was in DB!' % f['idu'])
             except:
                 self.stderr.write(
                     '  A problem occured with this COMMUNE %s!' % f['idu'])
@@ -173,6 +172,7 @@ class Command(BaseCommand):
 
         # For each EDIGEO dir (one by section)
         for path, dirname, files in os.walk(sections_path):
+            self.init_dirs()
             if len(files) == 0:
                 continue
             self.generate_mif(path, files)
@@ -195,4 +195,3 @@ class Command(BaseCommand):
                         self.save_section(layer)
                     if layer.name == 'COMMUNE':
                         self.save_commune(layer)
-

@@ -30,3 +30,22 @@ class EdigeoLieuDitAdmin(admin.ModelAdmin):
         'tex',
         'md5'
     )
+
+
+@admin.register(EdigeoParcelle)
+class EdigeoParcelleAdmin(admin.ModelAdmin):
+    list_display = (
+        'idu',
+        'supf',
+        'tex',
+        'section_idu',
+        'commune_idu'
+    )
+
+
+@admin.register(EdigeoSubdFisc)
+class EdigeoSubdFiscAdmin(admin.ModelAdmin):
+    list_display = (
+        'tex',
+        'md5'
+    )
