@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
             except IntegrityError:
-                self.stdout.write('  BORNE_PARCEL is already in DB!')
+                pass
             except:
                 self.stderr.write('  A problem occured with BORNE_PARCEL!')
 
@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
             except IntegrityError:
-                self.stdout.write('  This BATI is already in DB!')
+                pass
             except:
                 self.stderr.write('  A problem occured with this BATI!')
 
@@ -77,8 +77,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
             except IntegrityError:
-                self.stdout.write(
-                    '  SUBD_FISC %s is already in DB!' % f['tex'])
+                pass
             except:
                 self.stderr.write(
                     '  A problem occured with SUBD_FISC  %s!' % f['tex'])
@@ -99,8 +98,6 @@ class Command(BaseCommand):
                     commune_idu=f['idu'].value[:3],
                     section_idu=f['idu'].value[:8]
                 )
-                self.stdout.write(
-                    '  PARCELLE %s is already in DB but updated!' % f['idu'])
             except:
                 self.stderr.write(
                     '  A problem occured with PARCELLE %s!' % f['idu'])
@@ -114,8 +111,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
             except IntegrityError:
-                self.stdout.write(
-                    '  LIEU_DIT %s is already in DB!' % f['tex'])
+                pass
             except:
                 self.stderr.write(
                     '  A problem occured with LIEU_DIT %s!' % f['tex'])
@@ -129,7 +125,7 @@ class Command(BaseCommand):
                 s.the_geom = GEOSGeometry(f.geom.geojson, srid=self.epsg)
                 s.save()
             except IntegrityError:
-                self.stdout.write('  SECTION %s is already in DB!' % f['idu'])
+                pass
             except:
                 self.stderr.write(
                     '  A problem occured with SECTION %s!' % f['idu'])
@@ -150,8 +146,6 @@ class Command(BaseCommand):
                     gb_ident=f['gb_ident'].value,
                     the_geom=the_geom
                 )
-                self.stdout.write(
-                    '         COMMUNE %s already was in DB!' % f['idu'])
             except:
                 self.stderr.write(
                     '  A problem occured with this COMMUNE %s!' % f['idu'])

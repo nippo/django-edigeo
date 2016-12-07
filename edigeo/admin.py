@@ -18,6 +18,7 @@ class EdigeoCommuneAdmin(admin.ModelAdmin):
 
 @admin.register(EdigeoSection)
 class EdigeoSectionAdmin(admin.ModelAdmin):
+    search_fields = ['idu', 'tex']
     list_display = (
         'idu',
         'tex'
