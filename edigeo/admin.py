@@ -27,6 +27,8 @@ class EdigeoSectionAdmin(admin.ModelAdmin):
 
 @admin.register(EdigeoLieuDit)
 class EdigeoLieuDitAdmin(admin.ModelAdmin):
+    search_fields = ['tex']
+    search_fields = ['idu', 'tex']
     list_display = (
         'tex',
         'md5'
