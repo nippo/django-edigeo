@@ -1,1 +1,1 @@
-@link http://n.ippo.io/b/conversion-de-format-geographique
+https://geomilia.org/edigeo-vers-postgis/
